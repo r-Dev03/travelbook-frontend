@@ -17,7 +17,7 @@ TravelBook Frontend is an Angular 14 application that provides the user interfac
 - Customer information and checkout flow
 - Responsive UI components
 
-This frontend integrates with the [TravelBook Backend](https://github.com/yourusername/travelbook-backend) REST API.
+This frontend integrates with the [TravelBook Backend](https://github.com/r-Dev03/travelbook-backend) REST API.
 
 ## Tech Stack
 
@@ -93,7 +93,7 @@ ng serve
 
 Navigate to `http://localhost:4200/`. The application will automatically reload if you change any source files.
 
-**Note:** Make sure the [backend](https://github.com/yourusername/travelbook-backend) is running on `http://localhost:8080` before starting the frontend.
+**Note:** Make sure the [backend](https://github.com/r-Dev03/travelbook-backend) is running on `http://localhost:8080` before starting the frontend.
 
 ### Production Build
 ```bash
@@ -236,7 +236,7 @@ The application submits the booking to the backend API and displays an order con
 
 ## Backend Integration
 
-This frontend requires the [TravelBook Backend](https://github.com/yourusername/travelbook-backend) to be running.
+This frontend requires the [TravelBook Backend](https://github.com/r-Dev03/travelbook-backend) to be running.
 
 **Backend Endpoints Used:**
 - `GET /api/vacations` - Fetch vacation packages
@@ -311,13 +311,6 @@ export const environment = {
   apiUrl: 'https://your-backend-api.com/api'
 };
 ```
-
-## Browser Support
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
 
 ## License
 
