@@ -315,5 +315,3 @@ export const environment = {
 ## License
 
 MIT License - see LICENSE file for details
-
-*Angular frontend application for vacation booking platform integrating with Spring Boot REST API backend.*
