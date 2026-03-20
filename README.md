@@ -1,21 +1,21 @@
 # TravelBook Frontend
 
-**Angular Application for Vacation Booking Platform**
+**Angular 14 Frontend for Vacation Booking Platform**
 
 [![Angular](https://img.shields.io/badge/Angular-14.2-red.svg)](https://angular.io/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-4.7-blue.svg)](https://www.typescriptlang.org/)
-[![Angular Material](https://img.shields.io/badge/Material-14.2-purple.svg)](https://material.angular.io/)
+[![RxJS](https://img.shields.io/badge/RxJS-7.5-purple.svg)](https://rxjs.dev/)
 
 ## Overview
 
-TravelBook Frontend is an Angular 14 application that provides the user interface for a vacation booking platform. Built with Angular Material for responsive design, it offers customers an intuitive experience for browsing vacation packages, selecting excursions, and completing bookings.
+TravelBook Frontend is an Angular 14 application that provides the user interface for a vacation booking platform. It offers customers an intuitive experience for browsing vacation packages, selecting excursions, managing shopping carts, and completing bookings.
 
 **Key Features:**
 - Browse vacation packages with detailed information
-- Search and filter available excursions
-- Add vacations and excursions to shopping cart
-- Complete checkout process with customer information
-- Responsive design with Angular Material
+- View and select excursions for each vacation
+- Shopping cart management
+- Customer information and checkout flow
+- Responsive UI components
 
 This frontend integrates with the [TravelBook Backend](https://github.com/yourusername/travelbook-backend) REST API.
 
@@ -26,13 +26,9 @@ This frontend integrates with the [TravelBook Backend](https://github.com/yourus
 - TypeScript 4.7
 - RxJS 7.5
 
-**UI Library:**
-- Angular Material 14.2
-- Angular Flex Layout 14.0
-
 **Build Tools:**
 - Angular CLI 14.2
-- Karma/Jasmine (testing)
+- npm
 
 ## Prerequisites
 
@@ -44,7 +40,7 @@ This frontend integrates with the [TravelBook Backend](https://github.com/yourus
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/travelbook-frontend.git
+git clone https://github.com/r-Dev03/travelbook-frontend.git
 cd travelbook-frontend
 ```
 
@@ -68,12 +64,22 @@ You should see Angular CLI version 14.2.x.
 
 The application is configured to connect to the backend API at `http://localhost:8080/api`.
 
-If your backend runs on a different host or port, update the API base URL in the service files located in `src/app/services/`.
+If your backend runs on a different host or port, update the API base URL in the environment files:
 
-**Example service configuration:**
+**`src/environments/environment.ts` (development):**
 ```typescript
-// src/app/services/vacation.service.ts
-private baseUrl = 'http://localhost:8080/api/vacations';
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:8080/api'
+};
+```
+
+**`src/environments/environment.prod.ts` (production):**
+```typescript
+export const environment = {
+  production: true,
+  apiUrl: 'https://your-backend-api.com/api'
+};
 ```
 
 ## Running the Application
@@ -101,154 +107,142 @@ The build artifacts will be stored in the `dist/` directory.
 travelbook-frontend/
 ├── src/
 │   ├── app/
-│   │   ├── components/           # UI components
-│   │   │   ├── vacation-list/
-│   │   │   ├── excursion-list/
-│   │   │   ├── cart/
-│   │   │   └── checkout/
-│   │   ├── services/             # API services
-│   │   │   ├── vacation.service.ts
-│   │   │   ├── excursion.service.ts
-│   │   │   ├── cart.service.ts
-│   │   │   └── checkout.service.ts
-│   │   ├── models/               # TypeScript interfaces
+│   │   ├── model/                    # TypeScript models and DTOs
+│   │   │   ├── cart.ts
+│   │   │   ├── cart-item.ts
+│   │   │   ├── customer.ts
 │   │   │   ├── vacation.ts
 │   │   │   ├── excursion.ts
-│   │   │   ├── customer.ts
-│   │   │   └── cart.ts
-│   │   ├── app.component.ts      # Root component
-│   │   ├── app.module.ts         # Main module
-│   │   └── app-routing.module.ts # Routing configuration
-│   ├── assets/                   # Static assets
-│   ├── environments/             # Environment configs
+│   │   │   ├── country.ts
+│   │   │   ├── division.ts
+│   │   │   ├── StatusType.ts
+│   │   │   └── dto/                  # Data transfer objects
+│   │   ├── services/
+│   │   │   └── purchase-data.service.ts  # Shared purchase data service
+│   │   ├── views/                    # Angular components
+│   │   │   ├── vacation/             # Vacation list view
+│   │   │   ├── vacation-detail/      # Vacation details
+│   │   │   ├── excursion/            # Excursion list
+│   │   │   ├── excursion-detail/     # Excursion details
+│   │   │   ├── cart/                 # Shopping cart
+│   │   │   ├── cart-summary/         # Cart summary
+│   │   │   ├── add-customer/         # Customer registration
+│   │   │   ├── edit-customer/        # Edit customer info
+│   │   │   ├── view-customer/        # View customer info
+│   │   │   └── order-confirmation/   # Order confirmation
+│   │   ├── app.component.ts          # Root component
+│   │   ├── app.module.ts             # Main module
+│   │   └── app-routing.module.ts     # Routing configuration
+│   ├── assets/                       # Static assets
+│   ├── environments/                 # Environment configs
 │   │   ├── environment.ts
 │   │   └── environment.prod.ts
 │   ├── index.html
 │   ├── main.ts
-│   └── styles.css               # Global styles
-├── angular.json                 # Angular workspace config
-├── package.json                 # npm dependencies
-├── tsconfig.json                # TypeScript config
+│   └── styles.css                    # Global styles
+├── angular.json                      # Angular workspace config
+├── package.json                      # npm dependencies
+├── tsconfig.json                     # TypeScript config
 └── README.md
 ```
 
-## Key Features
+## Application Flow
 
-### Vacation Browsing
-- Browse all available vacation packages
-- View detailed information (destination, price, dates, description)
-- Filter by destination or price range
+### 1. Browse Vacations
+Users can browse available vacation packages with destination details, pricing, and dates.
 
-### Excursion Selection
-- View excursions associated with each vacation
-- Add multiple excursions to a booking
-- See excursion details (activity name, price, dates)
+### 2. View Excursions
+Each vacation displays associated excursions (activities, tours) that can be added to the booking.
 
-### Shopping Cart
-- Add vacations with selected excursions
-- Review items before checkout
-- Remove items from cart
-- See total price calculation
+### 3. Add to Cart
+Users select a vacation and optional excursions, adding them to their shopping cart.
 
-### Checkout Process
-- Enter customer information (name, address, phone)
-- Form validation for all required fields
-- Submit booking to backend API
-- Receive order confirmation with tracking number
+### 4. Enter Customer Information
+During checkout, users provide their contact and address information.
 
-### Responsive Design
-- Mobile-friendly layout using Angular Flex Layout
-- Material Design components for consistent UI
-- Accessible form controls
+### 5. Complete Purchase
+The application submits the booking to the backend API and displays an order confirmation with a tracking number.
 
-## API Integration
+## Key Components
 
-### Services
+### Vacation Views
+- **vacation/** - Lists all available vacation packages
+- **vacation-detail/** - Shows detailed information for a selected vacation
 
-The application uses Angular services to communicate with the backend REST API:
+### Excursion Views
+- **excursion/** - Lists available excursions
+- **excursion-detail/** - Shows detailed information for a selected excursion
 
-**VacationService**
+### Cart Management
+- **cart/** - Displays items in the shopping cart
+- **cart-summary/** - Shows cart totals and checkout options
+
+### Customer Management
+- **add-customer/** - Customer registration form
+- **edit-customer/** - Edit existing customer information
+- **view-customer/** - Display customer details
+
+### Checkout
+- **order-confirmation/** - Displays successful booking confirmation
+
+## Data Models
+
+### Core Entities
+
+**Vacation:**
 ```typescript
-getVacations(): Observable<Vacation[]>
-getVacation(id: number): Observable<Vacation>
-searchVacations(title: string): Observable<Vacation[]>
+{
+  id: number;
+  vacationTitle: string;
+  description: string;
+  travelPrice: number;
+  imageURL: string;
+}
 ```
 
-**ExcursionService**
+**Excursion:**
 ```typescript
-getExcursions(): Observable<Excursion[]>
-getExcursion(id: number): Observable<Excursion>
-getExcursionsByVacation(vacationId: number): Observable<Excursion[]>
+{
+  id: number;
+  excursionTitle: string;
+  excursionPrice: number;
+  imageURL: string;
+  vacationId: number;
+}
 ```
 
-**CartService**
+**Customer:**
 ```typescript
-addToCart(vacation: Vacation, excursions: Excursion[]): void
-getCartItems(): Observable<CartItem[]>
-removeFromCart(itemId: number): void
-getTotalPrice(): number
+{
+  id: number;
+  firstName: string;
+  lastName: string;
+  address: string;
+  postal_code: string;
+  phone: string;
+}
 ```
 
-**CheckoutService**
+**Cart:**
 ```typescript
-purchase(customer: Customer, cartItems: CartItem[]): Observable<PurchaseResponse>
-```
-
-## Development
-
-### Running Tests
-```bash
-# Run unit tests
-ng test
-
-# Run tests with code coverage
-ng test --code-coverage
-```
-
-### Code Scaffolding
-```bash
-# Generate a new component
-ng generate component components/component-name
-
-# Generate a new service
-ng generate service services/service-name
-
-# Generate a new model
-ng generate interface models/model-name
-```
-
-### Linting
-```bash
-ng lint
-```
-
-## Deployment
-
-### Build for Production
-```bash
-ng build --configuration production
-```
-
-The optimized build will be in the `dist/` directory and can be deployed to any static hosting service:
-
-- **GitHub Pages:** Use `ng deploy` with `angular-cli-ghpages`
-- **Netlify:** Drag and drop `dist/` folder
-- **AWS S3:** Upload `dist/` contents to S3 bucket with static hosting
-- **Vercel:** Connect GitHub repo for automatic deployments
-
-### Environment Configuration
-
-Update `src/environments/environment.prod.ts` for production API endpoints:
-```typescript
-export const environment = {
-  production: true,
-  apiUrl: 'https://your-backend-api.com/api'
-};
+{
+  id: number;
+  packagePrice: number;
+  partySize: number;
+  status: StatusType;
+  customer: Customer;
+}
 ```
 
 ## Backend Integration
 
 This frontend requires the [TravelBook Backend](https://github.com/yourusername/travelbook-backend) to be running.
+
+**Backend Endpoints Used:**
+- `GET /api/vacations` - Fetch vacation packages
+- `GET /api/excursions` - Fetch excursions
+- `GET /api/customers` - Fetch customer data
+- `POST /api/checkout/purchase` - Submit booking
 
 **Full Stack Setup:**
 
@@ -269,27 +263,53 @@ ng serve
 3. **Access Application:**
 Open `http://localhost:4200` in your browser
 
-## Troubleshooting
+## Development
 
-**Issue: npm install fails**
-- Solution: Clear npm cache: `npm cache clean --force`
-- Try deleting `node_modules` and `package-lock.json`, then run `npm install` again
-
-**Issue: Cannot connect to backend API**
-- Solution: Verify backend is running on `http://localhost:8080`
-- Check CORS configuration in backend allows `http://localhost:4200`
-- Check browser console for specific error messages
-
-**Issue: Port 4200 already in use**
-- Solution: Kill the process using port 4200 or run on different port:
+### Running Tests
 ```bash
-  ng serve --port 4300
+# Run unit tests
+ng test
+
+# Run tests with code coverage
+ng test --code-coverage
 ```
 
-**Issue: Angular Material styles not loading**
-- Solution: Verify `@angular/material` styles are imported in `styles.css`:
-```css
-  @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+### Code Scaffolding
+```bash
+# Generate a new component
+ng generate component components/component-name
+
+# Generate a new service
+ng generate service services/service-name
+```
+
+### Linting
+```bash
+ng lint
+```
+
+## Deployment
+
+### Build for Production
+```bash
+ng build --configuration production
+```
+
+The optimized build will be in the `dist/` directory and can be deployed to any static hosting service:
+
+- **Netlify:** Drag and drop `dist/` folder
+- **Vercel:** Connect GitHub repo for automatic deployments
+- **AWS S3:** Upload `dist/` contents to S3 bucket with static hosting
+- **GitHub Pages:** Use `ng deploy` with `angular-cli-ghpages`
+
+### Environment Configuration
+
+Update `src/environments/environment.prod.ts` for production API endpoints:
+```typescript
+export const environment = {
+  production: true,
+  apiUrl: 'https://your-backend-api.com/api'
+};
 ```
 
 ## Browser Support
@@ -299,38 +319,10 @@ Open `http://localhost:4200` in your browser
 - Safari (latest)
 - Edge (latest)
 
-## Future Enhancements
-
-**User Experience:**
-- User authentication and accounts
-- Booking history and management
-- Favorite/wishlist functionality
-- Reviews and ratings system
-- Advanced search and filtering
-
-**Technical Improvements:**
-- Upgrade to latest Angular version
-- State management (NgRx or Akita)
-- Progressive Web App (PWA) capabilities
-- Internationalization (i18n)
-- E2E testing with Cypress
-- Performance optimization (lazy loading, OnPush change detection)
-
-**Features:**
-- Real-time availability checking
-- Payment integration
-- Email confirmation
-- Social sharing
-- Interactive maps for destinations
-
-## Contributing
-
-Contributions welcome! Please open an issue or submit a pull request.
-
 ## License
 
 MIT License - see LICENSE file for details
 
 ---
 
-*Angular frontend application demonstrating modern web development with Material Design, RESTful API integration, and responsive UI patterns.*
+*Angular frontend application for vacation booking platform integrating with Spring Boot REST API backend.*
