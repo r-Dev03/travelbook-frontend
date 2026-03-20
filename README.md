@@ -146,23 +146,6 @@ travelbook-frontend/
 └── README.md
 ```
 
-## Application Flow
-
-### 1. Browse Vacations
-Users can browse available vacation packages with destination details, pricing, and dates.
-
-### 2. View Excursions
-Each vacation displays associated excursions (activities, tours) that can be added to the booking.
-
-### 3. Add to Cart
-Users select a vacation and optional excursions, adding them to their shopping cart.
-
-### 4. Enter Customer Information
-During checkout, users provide their contact and address information.
-
-### 5. Complete Purchase
-The application submits the booking to the backend API and displays an order confirmation with a tracking number.
-
 ## Key Components
 
 ### Vacation Views
