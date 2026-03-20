@@ -312,6 +312,13 @@ export const environment = {
 };
 ```
 
+## Browser Support
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
 ## License
 
 MIT License - see LICENSE file for details
