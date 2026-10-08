@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "d288-front-end": {
+    "travelbook-frontend": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/d288-front-end",
+            "outputPath": "dist/travelbook-frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -64,10 +64,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "d288-front-end:build:production"
+              "browserTarget": "travelbook-frontend:build:production"
             },
             "development": {
-              "browserTarget": "d288-front-end:build:development"
+              "browserTarget": "travelbook-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -75,7 +75,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "d288-front-end:build"
+            "browserTarget": "travelbook-frontend:build"
           }
         },
         "test": {
